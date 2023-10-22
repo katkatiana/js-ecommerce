@@ -37,32 +37,35 @@ const amy = {
 const prices = [34, 5, 2];
 const shippingCost = 50;
 let utenteCheEffettuaLAcquisto = marco; //cambia il valore qui per provare se il tuo algoritmo funziona!
-let totalBasket = 0;
-let basket = 0;
-for (sum = 0; sum < prices.length; sum++) {
-  basket += prices[sum];
-}
-console.log(basket);
+let totalBasket = 0; //creo una variabile che contenga il carrello totale (spedizione + prodotti)
+let basket = 0; //variabile che contiene solo il costo totale dei prodotti
 
-if (utenteCheEffettuaLAcquisto.isAmbassador) {
-  basket = basket - basket * 0.3;
+for (x = 0; x < prices.length; x++) { //ciclo per selezionare ogni elemento dell'array per sommarli tra loro (line 44) conservando il risultato nella variabile basket
+  basket += prices[x];
 }
-totalBasket = basket + shippingCost;
-if (basket > 100) {
-  totalBasket = basket;
+console.log("Somma del costo prodotti del carrello: " + basket); //basket qui contiene la somma degli elementi del carrello
+
+if (utenteCheEffettuaLAcquisto.isAmbassador) { //blocco if per controllare se l'utente è ambassador
+  basket = basket - basket * 0.3; //se ambassador, qui applicato sconto del 30% sui prodotti del carrello
 }
-console.log(totalBasket);
 
-let usersArray = [];
-usersArray.push(marco, paul, amy);
-console.log(usersArray);
-let ambassadorsArray = []
+if (basket > 100) { //if per verificare se totale carrello > 100
+  totalBasket = basket; //se vero, non si aggiungeranno spese di spedizione
+} else {
+  totalBasket = basket + shippingCost; //altrimenti sì
+}
+console.log("Totale carrello inclusa spedizione: " + totalBasket);
 
-for (i = 0; i < usersArray.length; i++) {
-  if (usersArray[i].isAmbassador) {
-    console.log(usersArray[i].name, usersArray[i].lastName, "is Ambassador");
-    ambassadorsArray.push(usersArray[i])
-  } else {
+let usersArray = []; //dichiarazione di un array che conterrà gli oggetti-utente
+usersArray.push(marco, paul, amy); //aggiunta dei singoli utenti
+console.log("Utenti presenti nel sistema: ", usersArray);
+let ambassadorsArray = [] //dichiarazione di un array che conterrà gli oggetti-utente ambassadors
+
+for (i = 0; i < usersArray.length; i++) { //ciclo per ciascun elemento dell'array usersArray
+  if (usersArray[i].isAmbassador) { //blocco if per verificare per ogni utente dell'array se è o meno ambassador
+    console.log(usersArray[i].name, usersArray[i].lastName, "is Ambassador"); //stampa nome, cognome dell'utente dichiarandolo ambassador
+    ambassadorsArray.push(usersArray[i]) //inserisce l'elemento nel secondo array
+  } else { //altrimenti stamperà nome e cognome dell'utente dichiarandolo non ambassador
     console.log(
       usersArray[i].name,
       usersArray[i].lastName,
@@ -70,5 +73,5 @@ for (i = 0; i < usersArray.length; i++) {
     );
   }
 }
-console.log(ambassadorsArray)
+console.log("Gli utenti ambassador presenti nel sistema sono: " , ambassadorsArray)
 
